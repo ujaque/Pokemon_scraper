@@ -6,6 +6,7 @@ headers = {
     "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
 }
 
+
 def get_general_data(headers):
     '''
 
@@ -53,7 +54,7 @@ def get_general_data(headers):
     pokemon_table = soup.find('table', id='pokedex')
 
     for pokemon in pokemon_table.find_all('tbody'):
-        print(respuesta.status_code)
+        #print(respuesta.status_code)
         rows = pokemon.find_all('tr')
         for row in rows:
             pokemon = row.find('td', class_='cell-name')
@@ -88,19 +89,6 @@ def get_general_data(headers):
             pokemon_details_list = get_detailed_data(headers, pokemon_name)
 
 
-            print(pokemon_details_list[0])
-            print(pokemon_details_list[1])
-            print(pokemon_details_list[2])
-            print(pokemon_details_list[3])
-            print(pokemon_details_list[4])
-            print(pokemon_details_list[5])
-            print(pokemon_details_list[6])
-            print(pokemon_details_list[7])
-            print(pokemon_details_list[8])
-            print(pokemon_details_list[9])
-            print(pokemon_details_list[10])
-            print(pokemon_details_list[11])
-
             species_list.append(pokemon_details_list[0])
             height_list.append(pokemon_details_list[1])
             weight_list.append(pokemon_details_list[2])
@@ -115,26 +103,14 @@ def get_general_data(headers):
             eggs_cycles_rate_list.append(pokemon_details_list[11])
 
 
-#            print(species_list)
-#            print(height_list)
-#            print(weight_list)
-#            print(abilities_list)
-#            print(ev_yield_list)
-#            print(catch_rate_list)
-#            print(base_friendship_list)
-#            print(base_experience_list)
-#            print(growth_rate_list)
-#            print(eggs_groups_list)
-#            print(gender_rate_list)
-#            print(eggs_cycles_rate_list)
 
     df = pd.DataFrame(
-        {'Name':pokemon_name_list,
-         'Evolution':pokemon_evolution_list,
-         'Type':pokemon_type_list,
+        {'Name': pokemon_name_list,
+         'Evolution': pokemon_evolution_list,
+         'Type': pokemon_type_list,
          'Total': pokemon_total_list,
          'HP': pokemon_hp_list,
-         'Attack':pokemon_attack_list,
+         'Attack': pokemon_attack_list,
          'Defense': pokemon_defense_list,
          'Sp.Atk': pokemon_sp_atk_list,
          'Sp.Def': pokemon_sp_def_list,
@@ -154,7 +130,6 @@ def get_general_data(headers):
          })
 
 
-
     return df
 
 
@@ -166,7 +141,6 @@ def get_detailed_data(headers,pokemon_name):
     :return:
     '''
 
-    print(pokemon_name)
     #Excepciones
     if pokemon_name == 'Nidoran♀':
         pokemon_name = 'nidoran-m'
@@ -243,14 +217,3 @@ def get_detailed_data(headers,pokemon_name):
 
 pokemon_df = get_general_data(headers)
 pokemon_df.to_csv('pokemon.csv', encoding='utf-8-sig')
-
-
-
-
-
-
-
-
-
-
-
