@@ -1,16 +1,256 @@
-# This is a sample Python script.
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+headers = {
+    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
+}
+
+def get_general_data(headers):
+    '''
+
+    :param headers:
+    :return:
+    '''
+    pokemon_name_list = []
+    pokemon_evolution_list = []
+    pokemon_type_list = []
+    pokemon_total_list = []
+    pokemon_hp_list = []
+    pokemon_attack_list = []
+    pokemon_defense_list = []
+    pokemon_sp_atk_list = []
+    pokemon_sp_def_list = []
+    pokemon_speed_list = []
+    # details
+    species_list = []
+    height_list = []
+    weight_list = []
+    abilities_list = []
+    ev_yield_list = []
+    catch_rate_list = []
+    base_friendship_list = []
+    base_experience_list = []
+    growth_rate_list = []
+    eggs_groups_list = []
+    gender_rate_list = []
+    eggs_cycles_rate_list = []
+
+    # url = "http://www.frikea.es/PrecioCartasPokemon.php?cate=349"
+    url = "https://pokemondb.net/pokedex/all"
+    url_details = "https://pokemondb.net/pokedex/"
+
+    # https://stackoverflow.com/questions/23013220/max-retries-exceeded-with-url-in-requests
+    try:
+        respuesta = requests.get(url, headers=headers)
+        print(respuesta.status_code)
+    except requests.exceptions.ConnectionError:
+        status_code = "Connection refused"
+        print(status_code)
+
+    soup = BeautifulSoup(respuesta.text, 'html.parser')
+
+    pokemon_table = soup.find('table', id='pokedex')
+
+    for pokemon in pokemon_table.find_all('tbody'):
+        print(respuesta.status_code)
+        rows = pokemon.find_all('tr')
+        for row in rows:
+            pokemon = row.find('td', class_='cell-name')
+            pokemon_name = pokemon.find('a', class_='ent-name').text
+
+            pokemon_type = row.find_all('td', class_='cell-icon')[0].text
+            try:
+                pokemon_evolution = row.find(class_='text-muted').text
+            except AttributeError as err:
+                pokemon_evolution = " "
+
+            pokemon_total = row.find('td', class_='cell-total').text
+            pokemon_hp = row.find_all('td', class_='cell-num')[1].text
+            pokemon_attack = row.find_all('td', class_='cell-num')[2].text
+            pokemon_defense = row.find_all('td', class_='cell-num')[3].text
+            pokemon_sp_atk = row.find_all('td', class_='cell-num')[4].text
+            pokemon_sp_def = row.find_all('td', class_='cell-num')[5].text
+            pokemon_speed = row.find_all('td', class_='cell-num')[6].text
+
+            pokemon_name_list.append(pokemon_name)
+            pokemon_evolution_list.append(pokemon_evolution)
+            pokemon_type_list.append(pokemon_type)
+            pokemon_total_list.append(pokemon_total)
+            pokemon_hp_list.append(pokemon_hp)
+            pokemon_attack_list.append(pokemon_attack)
+            pokemon_defense_list.append(pokemon_defense)
+            pokemon_sp_atk_list.append(pokemon_sp_atk)
+            pokemon_sp_def_list.append(pokemon_sp_def)
+            pokemon_speed_list.append(pokemon_speed)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+            pokemon_details_list = get_detailed_data(headers, pokemon_name)
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+            print(pokemon_details_list[0])
+            print(pokemon_details_list[1])
+            print(pokemon_details_list[2])
+            print(pokemon_details_list[3])
+            print(pokemon_details_list[4])
+            print(pokemon_details_list[5])
+            print(pokemon_details_list[6])
+            print(pokemon_details_list[7])
+            print(pokemon_details_list[8])
+            print(pokemon_details_list[9])
+            print(pokemon_details_list[10])
+            print(pokemon_details_list[11])
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+            species_list.append(pokemon_details_list[0])
+            height_list.append(pokemon_details_list[1])
+            weight_list.append(pokemon_details_list[2])
+            abilities_list.append(pokemon_details_list[3])
+            ev_yield_list.append(pokemon_details_list[4])
+            catch_rate_list.append(pokemon_details_list[5])
+            base_friendship_list.append(pokemon_details_list[6])
+            base_experience_list.append(pokemon_details_list[7])
+            growth_rate_list.append(pokemon_details_list[8])
+            eggs_groups_list.append(pokemon_details_list[9])
+            gender_rate_list.append(pokemon_details_list[10])
+            eggs_cycles_rate_list.append(pokemon_details_list[11])
+
+
+#            print(species_list)
+#            print(height_list)
+#            print(weight_list)
+#            print(abilities_list)
+#            print(ev_yield_list)
+#            print(catch_rate_list)
+#            print(base_friendship_list)
+#            print(base_experience_list)
+#            print(growth_rate_list)
+#            print(eggs_groups_list)
+#            print(gender_rate_list)
+#            print(eggs_cycles_rate_list)
+
+    df = pd.DataFrame(
+        {'Name':pokemon_name_list,
+         'Evolution':pokemon_evolution_list,
+         'Type':pokemon_type_list,
+         'Total': pokemon_total_list,
+         'HP': pokemon_hp_list,
+         'Attack':pokemon_attack_list,
+         'Defense': pokemon_defense_list,
+         'Sp.Atk': pokemon_sp_atk_list,
+         'Sp.Def': pokemon_sp_def_list,
+         'Speed': pokemon_speed_list,
+         'Species': species_list,
+         'Height': height_list,
+         'Weight': weight_list,
+         'abilities': abilities_list,
+         'ev_yield': ev_yield_list,
+         'catch_rate': catch_rate_list,
+         'base_friendship': base_friendship_list,
+         'base_experience': base_experience_list,
+         'growth_rate': growth_rate_list,
+         'eggs_groups': eggs_groups_list,
+         'gender_rate': gender_rate_list,
+         'eggs_cycles_rate': eggs_cycles_rate_list,
+         })
+
+
+
+    return df
+
+
+def get_detailed_data(headers,pokemon_name):
+    '''
+
+    :param headers:
+    :param pokemon_name:
+    :return:
+    '''
+
+    print(pokemon_name)
+    #Excepciones
+    if pokemon_name == 'Nidoran♀':
+        pokemon_name = 'nidoran-m'
+    elif pokemon_name == 'Nidoran♂':
+        pokemon_name = 'nidoran-f'
+    elif pokemon_name == "Farfetch'd":
+        pokemon_name = 'farfetchd'
+    elif pokemon_name == 'Mr. Mime':
+        pokemon_name = 'mr-mime'
+    elif pokemon_name == 'Mime Jr.':
+        pokemon_name = 'mime-jr'
+    elif pokemon_name == 'Flabébé':
+        pokemon_name = 'flabebe'
+    elif pokemon_name == 'Tapu Koko':
+        pokemon_name = 'tapu-koko'
+    elif pokemon_name == 'Tapu Lele':
+        pokemon_name = 'tapu-lele'
+    elif pokemon_name == 'Tapu Bulu':
+        pokemon_name = 'tapu-bulu'
+    elif pokemon_name == 'Tapu Fini':
+        pokemon_name = 'tapu-fini'
+    elif pokemon_name == "Sirfetch'd":
+        pokemon_name = 'sirfetchd'
+    elif pokemon_name == "Mr. Rime":
+        pokemon_name = 'mr-rime'
+    elif pokemon_name == 'Type: Null':
+        pokemon_name = 'type-null'
+
+
+
+    url_details = "https://pokemondb.net/pokedex/"+pokemon_name
+    print(url_details)
+    respuesta_details = requests.get(url_details, headers=headers)
+    soup_details = BeautifulSoup(respuesta_details.text, 'html.parser')
+
+    pokemon_data = soup_details.find_all('table', class_='vitals-table')
+
+    for item in pokemon_data[0].find_all('tbody'):
+        rows = item.find_all('tr')
+
+        Species = rows[2].find('td').text.strip()
+        Height = rows[3].find('td').text.strip()
+        Weight = rows[4].find('td').text.strip()
+        abilities = rows[5].find('td').text.strip()
+
+
+    for item in pokemon_data[1].find_all('tbody'):
+        rows = item.find_all('tr')
+
+        ev_yield = rows[0].find('td').text.strip()
+        catch_rate = rows[1].find('td').text.strip()
+        base_friendship = rows[2].find('td').text.strip()
+        base_experience = rows[3].find('td').text.strip()
+        growth_rate = rows[4].find('td').text.strip()
+
+
+    for item in pokemon_data[2].find_all('tbody'):
+        rows = item.find_all('tr')
+
+        eggs_groups = rows[0].find('td').text.strip()
+        gender_rate = rows[1].find('td').text.strip()
+        eggs_cycles_rate = rows[2].find('td').text.strip()
+
+    detailed_data_list = [
+        Species, Height, Weight,
+        abilities, ev_yield, catch_rate,
+        base_friendship, base_experience,
+        growth_rate, eggs_groups, gender_rate,
+        eggs_cycles_rate
+    ]
+
+    return detailed_data_list
+
+
+pokemon_df = get_general_data(headers)
+pokemon_df.to_csv('pokemon.csv', encoding='utf-8-sig')
+
+
+
+
+
+
+
+
+
+
+
