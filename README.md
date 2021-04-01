@@ -24,28 +24,28 @@ python main.py
 
 ## Datos Obtenidos 📦
 
-* Name
-* Evolution
-* Type
-* Total
-* HP
-* Attack
-* Defense
-* Sp.Atk
-* Sp.Def
-* Speed
-* Species
-* Height
-* Weight
-* abilities
-* ev_yield
-* catch_rate
-* base_friendship
-* base_experience
-* growth_rate
-* eggs_groups
-* gender_rate
-* eggs_cycles_rate
+* Name: Nombre del pokemon
+* Evolution: Evolución del pokemon
+* Type: Clase del Pokemon
+* Total: Puntos totales
+* HP: Puntos de vida (Hit Points)
+* Attack: Mide la fuerza de los movimientos
+* Defense: Mide la habilidad de recibir ataques
+* Sp.Atk: Mide la fuerza de los movimientos (ataques especiales)
+* Sp.Def: Mide la habilidad de recibir ataques (ataques especiales)
+* Speed: Define que Pokemon hará el primer movimiento en la batalla
+* Species: La especie a la que pertenece
+* Height: Altura
+* Weight: Perso
+* abilities: Habilidades
+* ev_yield: Valor de esfuerdo producido (effort value yield)
+* catch_rate: probablidad de atraparlo
+* base_friendship: Amistad base
+* base_experience: Experiencia base
+* growth_rate: valocidad de crecimiento
+* eggs_groups: Grupos de huevos
+* gender_rate: porcentaje de genero
+* eggs_cycles_rate: ciclo de huevo hasta que eclosiona
 
 ## Construido con 🛠️
 
