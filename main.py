@@ -3,16 +3,18 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 headers = {
-    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
+    "user-agent":
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
 }
 
 
 def get_general_data(headers):
     '''
-
-    :param headers:
-    :return:
+    Funcion que extrae los datos generales de cada pokemon
+    :param headers: Parametro que define el user-agent
+    :return: devuelve un dataframe con los datos extraidos de la web
     '''
+
     pokemon_name_list = []
     pokemon_evolution_list = []
     pokemon_type_list = []
@@ -54,7 +56,6 @@ def get_general_data(headers):
     pokemon_table = soup.find('table', id='pokedex')
 
     for pokemon in pokemon_table.find_all('tbody'):
-        #print(respuesta.status_code)
         rows = pokemon.find_all('tr')
         for row in rows:
             pokemon = row.find('td', class_='cell-name')
@@ -85,9 +86,7 @@ def get_general_data(headers):
             pokemon_sp_def_list.append(pokemon_sp_def)
             pokemon_speed_list.append(pokemon_speed)
 
-
             pokemon_details_list = get_detailed_data(headers, pokemon_name)
-
 
             species_list.append(pokemon_details_list[0])
             height_list.append(pokemon_details_list[1])
@@ -101,8 +100,6 @@ def get_general_data(headers):
             eggs_groups_list.append(pokemon_details_list[9])
             gender_rate_list.append(pokemon_details_list[10])
             eggs_cycles_rate_list.append(pokemon_details_list[11])
-
-
 
     df = pd.DataFrame(
         {'Name': pokemon_name_list,
@@ -129,19 +126,17 @@ def get_general_data(headers):
          'eggs_cycles_rate': eggs_cycles_rate_list,
          })
 
-
     return df
 
 
-def get_detailed_data(headers,pokemon_name):
+def get_detailed_data(headers, pokemon_name):
     '''
-
     :param headers:
     :param pokemon_name:
     :return:
     '''
 
-    #Excepciones
+    # Excepciones
     if pokemon_name == 'Nidoran♀':
         pokemon_name = 'nidoran-m'
     elif pokemon_name == 'Nidoran♂':
@@ -169,8 +164,6 @@ def get_detailed_data(headers,pokemon_name):
     elif pokemon_name == 'Type: Null':
         pokemon_name = 'type-null'
 
-
-
     url_details = "https://pokemondb.net/pokedex/"+pokemon_name
     print(url_details)
     respuesta_details = requests.get(url_details, headers=headers)
@@ -181,11 +174,10 @@ def get_detailed_data(headers,pokemon_name):
     for item in pokemon_data[0].find_all('tbody'):
         rows = item.find_all('tr')
 
-        Species = rows[2].find('td').text.strip()
-        Height = rows[3].find('td').text.strip()
-        Weight = rows[4].find('td').text.strip()
+        species = rows[2].find('td').text.strip()
+        height = rows[3].find('td').text.strip()
+        weight = rows[4].find('td').text.strip()
         abilities = rows[5].find('td').text.strip()
-
 
     for item in pokemon_data[1].find_all('tbody'):
         rows = item.find_all('tr')
@@ -196,16 +188,14 @@ def get_detailed_data(headers,pokemon_name):
         base_experience = rows[3].find('td').text.strip()
         growth_rate = rows[4].find('td').text.strip()
 
-
     for item in pokemon_data[2].find_all('tbody'):
         rows = item.find_all('tr')
-
         eggs_groups = rows[0].find('td').text.strip()
         gender_rate = rows[1].find('td').text.strip()
         eggs_cycles_rate = rows[2].find('td').text.strip()
 
     detailed_data_list = [
-        Species, Height, Weight,
+        species, height, weight,
         abilities, ev_yield, catch_rate,
         base_friendship, base_experience,
         growth_rate, eggs_groups, gender_rate,
