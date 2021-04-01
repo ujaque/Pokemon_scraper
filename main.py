@@ -7,7 +7,6 @@ headers = {
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
 }
 
-
 def get_general_data(headers):
     '''
     Funcion que extrae los datos generales de cada pokemon
@@ -15,6 +14,8 @@ def get_general_data(headers):
     :return: devuelve un dataframe con los datos extraidos de la web
     '''
 
+    # Definicion de listas con los valores a almacenar
+    # Detalles generales
     pokemon_name_list = []
     pokemon_evolution_list = []
     pokemon_type_list = []
@@ -25,7 +26,7 @@ def get_general_data(headers):
     pokemon_sp_atk_list = []
     pokemon_sp_def_list = []
     pokemon_speed_list = []
-    # details
+    # Detalles especificos
     species_list = []
     height_list = []
     weight_list = []
@@ -39,29 +40,26 @@ def get_general_data(headers):
     gender_rate_list = []
     eggs_cycles_rate_list = []
 
-    # url = "http://www.frikea.es/PrecioCartasPokemon.php?cate=349"
     url = "https://pokemondb.net/pokedex/all"
-    url_details = "https://pokemondb.net/pokedex/"
 
-    # https://stackoverflow.com/questions/23013220/max-retries-exceeded-with-url-in-requests
     try:
         respuesta = requests.get(url, headers=headers)
-        print(respuesta.status_code)
+        # print(respuesta.status_code)
     except requests.exceptions.ConnectionError:
         status_code = "Connection refused"
-        print(status_code)
+        # print(status_code)
 
     soup = BeautifulSoup(respuesta.text, 'html.parser')
 
     pokemon_table = soup.find('table', id='pokedex')
 
+    # loop y extraccion de valores sobre los pokemons de la web
     for pokemon in pokemon_table.find_all('tbody'):
         rows = pokemon.find_all('tr')
         for row in rows:
             pokemon = row.find('td', class_='cell-name')
             pokemon_name = pokemon.find('a', class_='ent-name').text
             pokemon_ref = pokemon.find('a', class_='ent-name').get('href')
-            print(pokemon_ref)
 
             pokemon_type = row.find_all('td', class_='cell-icon')[0].text
             try:
@@ -88,9 +86,10 @@ def get_general_data(headers):
             pokemon_sp_def_list.append(pokemon_sp_def)
             pokemon_speed_list.append(pokemon_speed)
 
-
+            # llamada a la funcion para extraer los detalles
             pokemon_details_list = get_detailed_data(headers, pokemon_ref)
 
+            # Guardo toda la info scrapeada en listas
             species_list.append(pokemon_details_list[0])
             height_list.append(pokemon_details_list[1])
             weight_list.append(pokemon_details_list[2])
@@ -104,6 +103,7 @@ def get_general_data(headers):
             gender_rate_list.append(pokemon_details_list[10])
             eggs_cycles_rate_list.append(pokemon_details_list[11])
 
+    # Genero un diccionario con todas las listas de informacion
     df = pd.DataFrame(
         {'Name': pokemon_name_list,
          'Evolution': pokemon_evolution_list,
@@ -134,19 +134,22 @@ def get_general_data(headers):
 
 def get_detailed_data(headers, pokemon_ref):
     '''
-    :param headers:
-    :param pokemon_name:
-    :return:
+    Funcion que extrae la informacion detallada de cada pokemon
+    :param headers: Parametro que define el user-agent
+    :param pokemon_ref: link de referencia de informacion
+                        detallada de cada pokemon
+    :return: Devuelve una lista con los detalles
     '''
 
 
     url_details = "https://pokemondb.net"+pokemon_ref
     print(url_details)
+    # obtengo el hmtl de la pagina
     respuesta_details = requests.get(url_details, headers=headers)
     soup_details = BeautifulSoup(respuesta_details.text, 'html.parser')
 
     pokemon_data = soup_details.find_all('table', class_='vitals-table')
-
+    # Obtengo los detalles de cada pokemon
     for item in pokemon_data[0].find_all('tbody'):
         rows = item.find_all('tr')
 
@@ -170,6 +173,7 @@ def get_detailed_data(headers, pokemon_ref):
         gender_rate = rows[1].find('td').text.strip()
         eggs_cycles_rate = rows[2].find('td').text.strip()
 
+    # almaceno los valores en una lista
     detailed_data_list = [
         species, height, weight,
         abilities, ev_yield, catch_rate,
