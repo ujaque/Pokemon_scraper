@@ -139,33 +139,6 @@ def get_detailed_data(headers, pokemon_ref):
     :return:
     '''
 
-    # Excepciones
-#    if pokemon_name == 'Nidoran♀':
-#        pokemon_name = 'nidoran-m'
-#    elif pokemon_name == 'Nidoran♂':
-#        pokemon_name = 'nidoran-f'
-#    elif pokemon_name == "Farfetch'd":
-#        pokemon_name = 'farfetchd'
-#    elif pokemon_name == 'Mr. Mime':
-#        pokemon_name = 'mr-mime'
-#    elif pokemon_name == 'Mime Jr.':
-#        pokemon_name = 'mime-jr'
-#    elif pokemon_name == 'Flabébé':
-#        pokemon_name = 'flabebe'
-#    elif pokemon_name == 'Tapu Koko':
-#        pokemon_name = 'tapu-koko'
-#    elif pokemon_name == 'Tapu Lele':
-#        pokemon_name = 'tapu-lele'
-#    elif pokemon_name == 'Tapu Bulu':
-#        pokemon_name = 'tapu-bulu'
-#    elif pokemon_name == 'Tapu Fini':
-#        pokemon_name = 'tapu-fini'
-#    elif pokemon_name == "Sirfetch'd":
-#        pokemon_name = 'sirfetchd'
-#    elif pokemon_name == "Mr. Rime":
-#        pokemon_name = 'mr-rime'
-#    elif pokemon_name == 'Type: Null':
-#        pokemon_name = 'type-null'
 
     url_details = "https://pokemondb.net"+pokemon_ref
     print(url_details)
