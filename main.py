@@ -60,6 +60,8 @@ def get_general_data(headers):
         for row in rows:
             pokemon = row.find('td', class_='cell-name')
             pokemon_name = pokemon.find('a', class_='ent-name').text
+            pokemon_ref = pokemon.find('a', class_='ent-name').get('href')
+            print(pokemon_ref)
 
             pokemon_type = row.find_all('td', class_='cell-icon')[0].text
             try:
@@ -86,7 +88,8 @@ def get_general_data(headers):
             pokemon_sp_def_list.append(pokemon_sp_def)
             pokemon_speed_list.append(pokemon_speed)
 
-            pokemon_details_list = get_detailed_data(headers, pokemon_name)
+
+            pokemon_details_list = get_detailed_data(headers, pokemon_ref)
 
             species_list.append(pokemon_details_list[0])
             height_list.append(pokemon_details_list[1])
@@ -129,7 +132,7 @@ def get_general_data(headers):
     return df
 
 
-def get_detailed_data(headers, pokemon_name):
+def get_detailed_data(headers, pokemon_ref):
     '''
     :param headers:
     :param pokemon_name:
@@ -137,34 +140,34 @@ def get_detailed_data(headers, pokemon_name):
     '''
 
     # Excepciones
-    if pokemon_name == 'Nidoran♀':
-        pokemon_name = 'nidoran-m'
-    elif pokemon_name == 'Nidoran♂':
-        pokemon_name = 'nidoran-f'
-    elif pokemon_name == "Farfetch'd":
-        pokemon_name = 'farfetchd'
-    elif pokemon_name == 'Mr. Mime':
-        pokemon_name = 'mr-mime'
-    elif pokemon_name == 'Mime Jr.':
-        pokemon_name = 'mime-jr'
-    elif pokemon_name == 'Flabébé':
-        pokemon_name = 'flabebe'
-    elif pokemon_name == 'Tapu Koko':
-        pokemon_name = 'tapu-koko'
-    elif pokemon_name == 'Tapu Lele':
-        pokemon_name = 'tapu-lele'
-    elif pokemon_name == 'Tapu Bulu':
-        pokemon_name = 'tapu-bulu'
-    elif pokemon_name == 'Tapu Fini':
-        pokemon_name = 'tapu-fini'
-    elif pokemon_name == "Sirfetch'd":
-        pokemon_name = 'sirfetchd'
-    elif pokemon_name == "Mr. Rime":
-        pokemon_name = 'mr-rime'
-    elif pokemon_name == 'Type: Null':
-        pokemon_name = 'type-null'
+#    if pokemon_name == 'Nidoran♀':
+#        pokemon_name = 'nidoran-m'
+#    elif pokemon_name == 'Nidoran♂':
+#        pokemon_name = 'nidoran-f'
+#    elif pokemon_name == "Farfetch'd":
+#        pokemon_name = 'farfetchd'
+#    elif pokemon_name == 'Mr. Mime':
+#        pokemon_name = 'mr-mime'
+#    elif pokemon_name == 'Mime Jr.':
+#        pokemon_name = 'mime-jr'
+#    elif pokemon_name == 'Flabébé':
+#        pokemon_name = 'flabebe'
+#    elif pokemon_name == 'Tapu Koko':
+#        pokemon_name = 'tapu-koko'
+#    elif pokemon_name == 'Tapu Lele':
+#        pokemon_name = 'tapu-lele'
+#    elif pokemon_name == 'Tapu Bulu':
+#        pokemon_name = 'tapu-bulu'
+#    elif pokemon_name == 'Tapu Fini':
+#        pokemon_name = 'tapu-fini'
+#    elif pokemon_name == "Sirfetch'd":
+#        pokemon_name = 'sirfetchd'
+#    elif pokemon_name == "Mr. Rime":
+#        pokemon_name = 'mr-rime'
+#    elif pokemon_name == 'Type: Null':
+#        pokemon_name = 'type-null'
 
-    url_details = "https://pokemondb.net/pokedex/"+pokemon_name
+    url_details = "https://pokemondb.net"+pokemon_ref
     print(url_details)
     respuesta_details = requests.get(url_details, headers=headers)
     soup_details = BeautifulSoup(respuesta_details.text, 'html.parser')
