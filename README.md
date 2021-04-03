@@ -36,7 +36,7 @@ python main.py
 * Speed: Define que Pokemon hará el primer movimiento en la batalla
 * Species: La especie a la que pertenece
 * Height: Altura
-* Weight: Perso
+* Weight: Peso
 * abilities: Habilidades
 * ev_yield: Valor de esfuerdo producido (effort value yield)
 * catch_rate: probablidad de atraparlo
@@ -44,7 +44,7 @@ python main.py
 * base_experience: Experiencia base
 * growth_rate: valocidad de crecimiento
 * eggs_groups: Grupos de huevos
-* gender_rate: porcentaje de genero
+* gender_rate: porcentaje de género
 * eggs_cycles_rate: ciclo de huevo hasta que eclosiona
 
 ## Construido con 🛠️
