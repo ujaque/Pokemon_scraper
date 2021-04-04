@@ -20,7 +20,7 @@ pip install beautifulsoup4
 ```
 
 ### Análisis de robots.txt 🔩
-_El análisis previo realizado sobre robots.txt de esta web nos asegura que no hay inconveniente en rastrear las urls que contienen la información referente a los Pokémon_
+_El análisis previo realizado sobre robots.txt de esta web nos asegura que no hay inconveniente en rastrear las urls que contienen la información referente a los Pokémon, ya que se encuentran listadas en el sitemap_
 
 ```
 User-agent: *
