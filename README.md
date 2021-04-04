@@ -3,7 +3,7 @@
 _Programa que extrae la informacion referente a los Pokemons de la web [pokemondb](https://pokemondb.net/pokedex/all)_
 
 
-![pexels-vincent-ma-janssen-1310847](https://user-images.githubusercontent.com/54951789/113504827-0a19bc80-953b-11eb-857a-38bb5bfedde6.jpg =100x100)
+![pexels-vincent-ma-janssen-1310847](https://user-images.githubusercontent.com/54951789/113504827-0a19bc80-953b-11eb-857a-38bb5bfedde6.jpg) { width=50% }
 
 Foto de Vincent M.A. Janssen en Pexels
 
