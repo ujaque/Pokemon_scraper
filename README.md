@@ -62,3 +62,9 @@ _Menciona las herramientas que utilizaste para crear tu proyecto_
 ## Licencia 📄
 
 Este proyecto está bajo la Licencia (GNU General Public License v3.0) - mira el archivo [LICENSE.md](https://github.com/ujaque/Pokemon_scraper/blob/master/LICENSE) para detalles
+
+## DOI
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4661775.svg)](https://doi.org/10.5281/zenodo.4661775)
+
+
