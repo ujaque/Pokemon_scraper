@@ -19,6 +19,49 @@ pip install requests
 pip install beautifulsoup4
 ```
 
+### Análisis de robots.txt 🔩
+_El análisis previo realizado sobre robots.txt de esta web nos asegura que no hay inconveniente en rastrear las urls que contienen la información referente a los Pokémon_
+
+```
+User-agent: *
+Disallow: /pokebase/login
+Disallow: /pokebase/forgot
+Disallow: /pokebase/search?
+Disallow: /pokebase/revisions
+Disallow: /pokebase/meta/login
+Disallow: /pokebase/meta/forgot
+Disallow: /pokebase/meta/search?
+Disallow: /pokebase/meta/revisions
+Disallow: /pokebase/rmt/login
+Disallow: /pokebase/rmt/forgot
+Disallow: /pokebase/rmt/search?
+Disallow: /pokebase/rmt/revisions
+Crawl-delay: 4
+
+User-agent: Yandex
+Crawl-delay: 30
+
+User-agent: SindiceBot
+Crawl-delay: 30
+
+User-agent: CCBot
+Crawl-Delay: 30
+
+User-agent: wget
+Disallow: /
+
+User-agent: WebReaper
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+Sitemap: https://pokemondb.net/static/sitemaps/pokemondb.xml
+Sitemap: https://pokemondb.net/static/sitemaps/pokebase.xml
+Sitemap: https://pokemondb.net/static/sitemaps/images.xml
+```
+
+
 ## Ejecutando las pruebas 🚀
 
 _El script se debe ejecutar de la siguiente forma_
