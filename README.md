@@ -74,8 +74,8 @@ python main.py
 ## Datos Obtenidos 📦
 
 * Name: Nombre del pokemon
-* Evolution: Evolución del pokemon
-* Type: Clase del Pokemon
+* Evolution: Evolución del Pokémon
+* Type: Clase del Pokémon
 * Total: Puntos totales
 * HP: Puntos de vida (Hit Points)
 * Attack: Mide la fuerza de los movimientos
@@ -87,11 +87,11 @@ python main.py
 * Height: Altura
 * Weight: Peso
 * abilities: Habilidades
-* ev_yield: Valor de esfuerdo producido (effort value yield)
+* ev_yield: Valor de esfuerzo producido (effort value yield)
 * catch_rate: probablidad de atraparlo
 * base_friendship: Amistad base
 * base_experience: Experiencia base
-* growth_rate: valocidad de crecimiento
+* growth_rate: velocidad de crecimiento
 * eggs_groups: Grupos de huevos
 * gender_rate: porcentaje de género
 * eggs_cycles_rate: ciclo de huevo hasta que eclosiona
